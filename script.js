@@ -1,20 +1,149 @@
+let catMeow = document.getElementById("cat-meow")
+let buttonClick = document.getElementById("button-click")
+let typeSound = document.getElementById("type-sound")
+
+let question = document.getElementById("question")
+let noButton = document.getElementById("no-button")
+let yesButton = document.getElementById("yes-button")
+
+let buttonGroup = document.getElementById("button-group")
+let feedButton = document.getElementById("feed-button")
+let petButton = document.getElementById("pet-button")
+let playButton = document.getElementById("play-button")
+
 let camilla = document.getElementById("camilla")
 let dialog = document.getElementById("dialog")
 let dialogText = document.getElementById("dialog-text")
+let dialogNext = document.getElementById("dialog-next")
 
 let clickCount = -1
-let allDialog = [
-    "HELLO THIS IS A TEXT TEXT SUP NIGGER MY NAME IS DDOT AND I LIKE TO GO FISHING FOR SOME FISHES BECAUSE I THINK THEY TASTE GOOD",
-    "MY NAME IS D AND I NEED TO FREAKEN PEE"
+let curentDialog = [
+    "Sorry! you scared me there, I was taking my 6th nap of the day.",
+    "You might know me as camilla, or the one you took Jr away from... eh it's whatever he was too clingy anyway.",
+    "Your boyfriend programmed this website to give you a note... but if you want to see it you'd have to do some things for me.",
+    "Go ahead and give these buttons a try, click enough of them and ill share you the note.",
 ]
 
 let isTyping = false;
 let currentText = "";
 
+let fed = false
+let pet = false
+let played = false
+let done = false
+
+noButton.addEventListener("click", function (e) {
+    window.close()
+})
+
+yesButton.addEventListener("click", function (e) {
+    window.location.href = 'hoco.html';
+})
+
+feedButton.addEventListener("mousedown", function (e) {
+    feedButton.querySelector("img").src = 'Sprites/Feed-Down.png';
+})
+feedButton.addEventListener("mouseup", function (e) {
+    feedButton.querySelector("img").src = 'Sprites/Feed-Up.png';
+})
+
+feedButton.addEventListener("click", async function (e) {
+    buttonClick.currentTime = 0;
+    buttonClick.play();
+
+    await sleep(0.1)
+
+    if (fed) {
+        curentDialog = [
+            "I don't think I can eat anymore.",
+        ]
+        clickCount = 0;
+        checkCount();
+        return;
+    }
+
+    curentDialog = [
+        "Yummy! That treat tasted really yummy!",
+        "You are one step closer from the note.",
+    ]
+    clickCount = 0;
+    checkCount();
+    fed = true;
+    feedButton.remove()
+})
+
+petButton.addEventListener("mousedown", function (e) {
+    petButton.querySelector("img").src = 'Sprites/Pet-Down.png';
+})
+petButton.addEventListener("mouseup", function (e) {
+    petButton.querySelector("img").src = 'Sprites/Pet-Up.png';
+})
+
+petButton.addEventListener("click", async function (e) {
+    buttonClick.currentTime = 0;
+    buttonClick.play();
+
+    await sleep(0.1)
+
+    if (pet) {
+        curentDialog = [
+            "Okay okay, thats enough petting for now.",
+        ]
+        clickCount = 0;
+        checkCount();
+        return;
+    }
+
+    curentDialog = [
+        "Thank you for the pets, I feel much better now. I absolutly love being pet.",
+        "You're even closer to the note now. Keep going, and you'll recieve.",
+    ]
+    clickCount = 0;
+    checkCount();
+    pet = true;
+    petButton.remove()
+})
+
+playButton.addEventListener("mousedown", function (e) {
+    playButton.querySelector("img").src = 'Sprites/Play-Down.png';
+})
+playButton.addEventListener("mouseup", function (e) {
+    playButton.querySelector("img").src = 'Sprites/Play-Up.png';
+})
+
+playButton.addEventListener('click', async function (e) {
+    buttonClick.currentTime = 0;
+    buttonClick.play();
+
+    await sleep(0.1)
+
+    if (played) {
+        curentDialog = [
+            "Im too tired to play now. I think i'll sleep after im done with this."
+        ]
+        clickCount = 0;
+        checkCount();
+        return;
+    }
+
+    curentDialog = [
+        "I love to play with my toys. They always make me so happy!",
+        "You're so close to the note. You should get it soon."
+    ]
+    clickCount = 0;
+    checkCount();
+    played = true;
+    playButton.remove()
+})
+
 camilla.addEventListener("click", function (e) {
-    if (isTyping){
+    catMeow.currentTime = 0;
+    catMeow.play();
+
+    if (isTyping) {
         dialogText.textContent = currentText
         isTyping = false
+
         return;
     }
 
@@ -23,30 +152,61 @@ camilla.addEventListener("click", function (e) {
 })
 
 function checkCount() {
-    if (clickCount >= 0){
+
+    if (clickCount >= 0) {
         console.log(clickCount);
-        if (clickCount > allDialog.length - 1){
+        if (clickCount > curentDialog.length - 1) {
             dialog.style.display = "none";
-            return;}
+            if (done) {
+                question.style.display = 'block';
+                return
+            }
+            if (fed && pet && played) {
+                curentDialog = [
+                    "Okay I think you've done enough. I'll go ahead and give up the note.",
+                    "But first you must answer one question, once you give your answer you will be redirected accordingly."
+                ]
+                clickCount = 0;
+                checkCount();
+
+                done = true
+                return;
+            }
+
+            buttonGroup.style.display = 'block';
+
+            return;
+        }
+
+        buttonGroup.style.display = 'none';
         dialog.style.display = "block";
-        typeDialog(clickCount, allDialog);
+        typeDialog(clickCount, curentDialog);
     }
- }
+}
 
 
 async function typeDialog(dialogIdx, dialogArray = ["EMPTY"]) {
     let newText = dialogArray[dialogIdx]
+    dialogNext.style.display = 'none';
     currentText = newText
     isTyping = true
 
     dialogText.textContent = ''
     for (let i = 0; i < newText.length; i++) {
-        if (!isTyping){break;}
+        if (!isTyping) { break; }
 
         dialogText.textContent += newText[i]
-        await sleep(0.02);
+        typeSound.currentTime = 0;
+        typeSound.play();
+        if (newText[i] == '.') {
+            await sleep(0.75);
+        }
+        else {
+            await sleep(0.06);
+        }
     }
 
+    dialogNext.style.display = 'block';
     dialogText.textContent = currentText;
     isTyping = false
 }

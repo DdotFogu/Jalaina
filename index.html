@@ -4,24 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>KISS ME?</title>
 
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 
 <body>
-    <button id="camilla">
-        <img id="camilla-gif" src="Sprites\Camilla-Idle.png" alt="pixel art tabby cat">
-    </button>
+    <audio id="type-sound">
+        <source src="Sounds/type-sound.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="button-click">
+        <source src="Sounds/mouse-click.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="camilla-container">
+        <button id="camilla">
+            <img id="camilla-gif" src="Sprites\Camilla-Idle.png" alt="pixel art tabby cat">
+        </button>
+        <img src="Sprites/ground.png" alt="ground" id="ground">
+        <audio id="cat-meow">
+            <source src="Sounds/cat-meow.mp3" type="audio/mpeg">
+        </audio>
+    </div>
     <div id="dialog">
         <h1 id="dialog-name">Camilla :</h1>
         <h1 id="dialog-text">PLACE HOLDER</h1>
-        <!--<button id="dialog-next">
+        <div id="dialog-next">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
-                <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
+                <path d="M480-360 280-560h400L480-360Z" />
             </svg>
-        </button>-->
+        </div>
+    </div>
+    <div id="button-group">
+        <button id="feed-button">
+            <img src="Sprites/Feed-Up.png" alt="Feed Button" width="135">
+        </button>
+        <button id="pet-button">
+            <img src="Sprites/Pet-Up.png" alt="Pet Button" width="135">
+        </button>
+        <button id="play-button">
+            <img src="Sprites/Play-Up.png" alt="Play Button" width="135">
+        </button>
+    </div>
+    <div id="question">
+        <h1>Do you love your boyfriend?</h1>
+        <ul>
+            <li>
+                <button id="yes-button">YES!!!</button>
+            </li>
+            <li>
+                <button id="no-button">NO???</button>
+            </li>
+        </ul>
     </div>
 </body>
 
