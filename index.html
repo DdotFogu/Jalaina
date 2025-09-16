@@ -4,13 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KISS ME?</title>
+    <title>Camilla's Haven</title>
 
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 
 <body>
+    <audio autoplay loop>
+        <source src="Sounds/room-71897.mp3" type="audio/mpeg">
+    </audio>
+
     <audio id="type-sound">
         <source src="Sounds/type-sound.mp3" type="audio/mpeg">
     </audio>
@@ -20,12 +24,23 @@
     </audio>
 
     <div id="camilla-container">
+        <div id="play">
+            <img src="Icons/cat-post.png" alt="cat post" id="cat-post">
+            <img src="Icons/yarn.png" alt="blue yarn" id="yarn">
+        </div>
+        <div id="food">
+            <img src="Icons/cat-food.png" alt="cat food" id="cat-food">
+            <img src="Icons/water-bowl.png" alt="water bowl" id="water-bowl">
+        </div>
         <button id="camilla">
             <img id="camilla-gif" src="Sprites\Camilla-Idle.png" alt="pixel art tabby cat">
         </button>
         <img src="Sprites/ground.png" alt="ground" id="ground">
         <audio id="cat-meow">
             <source src="Sounds/cat-meow.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="cat-purr">
+            <source src="Sounds/cat-purr.mp3" type="audio/mpeg">
         </audio>
     </div>
     <div id="dialog">
@@ -39,13 +54,13 @@
     </div>
     <div id="button-group">
         <button id="feed-button">
-            <img src="Sprites/Feed-Up.png" alt="Feed Button" width="135">
+            FEED
         </button>
         <button id="pet-button">
-            <img src="Sprites/Pet-Up.png" alt="Pet Button" width="135">
+            PET
         </button>
         <button id="play-button">
-            <img src="Sprites/Play-Up.png" alt="Play Button" width="135">
+            PLAY
         </button>
     </div>
     <div id="question">

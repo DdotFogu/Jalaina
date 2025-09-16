@@ -21,6 +21,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    align-content: center;
 
     background-image: url(Icons/fantastic-seascape-with-ripples.jpg);
     background-repeat: no-repeat;
@@ -31,5 +32,6 @@ body {
 #hoco {
     width: 600px;
     margin-top: 60px;
-
+    margin-left: 40px;
+    margin-right: 30px;
 }

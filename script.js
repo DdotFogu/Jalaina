@@ -1,6 +1,8 @@
 let catMeow = document.getElementById("cat-meow")
+let catPurr = document.getElementById("cat-purr")
 let buttonClick = document.getElementById("button-click")
 let typeSound = document.getElementById("type-sound")
+typeSound.volume = 0.3;
 
 let question = document.getElementById("question")
 let noButton = document.getElementById("no-button")
@@ -18,7 +20,7 @@ let dialogNext = document.getElementById("dialog-next")
 
 let clickCount = -1
 let curentDialog = [
-    "Sorry! you scared me there, I was taking my 6th nap of the day.",
+    "I had to get up from my 6th nap of the day for this, so it better be worth it.",
     "You might know me as camilla, or the one you took Jr away from... eh it's whatever he was too clingy anyway.",
     "Your boyfriend programmed this website to give you a note... but if you want to see it you'd have to do some things for me.",
     "Go ahead and give these buttons a try, click enough of them and ill share you the note.",
@@ -32,26 +34,31 @@ let pet = false
 let played = false
 let done = false
 
-noButton.addEventListener("click", function (e) {
-    window.close()
-})
-
-yesButton.addEventListener("click", function (e) {
-    window.location.href = 'hoco.html';
-})
-
-feedButton.addEventListener("mousedown", function (e) {
-    feedButton.querySelector("img").src = 'Sprites/Feed-Down.png';
-})
-feedButton.addEventListener("mouseup", function (e) {
-    feedButton.querySelector("img").src = 'Sprites/Feed-Up.png';
-})
-
-feedButton.addEventListener("click", async function (e) {
+noButton.addEventListener("click", async function (e) {
     buttonClick.currentTime = 0;
     buttonClick.play();
 
-    await sleep(0.1)
+    await sleep(0.25)
+
+    window.close()
+})
+
+yesButton.addEventListener("click", async function (e) {
+    buttonClick.currentTime = 0;
+    buttonClick.play();
+
+    await sleep(1)
+
+    window.location.href = 'note.html';
+})
+
+feedButton.addEventListener("click", async function (e) {
+    document.getElementById("food").style.display = "block";
+
+    buttonClick.currentTime = 0;
+    buttonClick.play();
+
+    await sleep(0.25)
 
     if (fed) {
         curentDialog = [
@@ -72,18 +79,14 @@ feedButton.addEventListener("click", async function (e) {
     feedButton.remove()
 })
 
-petButton.addEventListener("mousedown", function (e) {
-    petButton.querySelector("img").src = 'Sprites/Pet-Down.png';
-})
-petButton.addEventListener("mouseup", function (e) {
-    petButton.querySelector("img").src = 'Sprites/Pet-Up.png';
-})
-
 petButton.addEventListener("click", async function (e) {
     buttonClick.currentTime = 0;
     buttonClick.play();
 
-    await sleep(0.1)
+    catPurr.currentTime = 0;
+    catPurr.play();
+
+    await sleep(0.25)
 
     if (pet) {
         curentDialog = [
@@ -104,18 +107,14 @@ petButton.addEventListener("click", async function (e) {
     petButton.remove()
 })
 
-playButton.addEventListener("mousedown", function (e) {
-    playButton.querySelector("img").src = 'Sprites/Play-Down.png';
-})
-playButton.addEventListener("mouseup", function (e) {
-    playButton.querySelector("img").src = 'Sprites/Play-Up.png';
-})
 
 playButton.addEventListener('click', async function (e) {
+    document.getElementById("play").style.display = "block";
+
     buttonClick.currentTime = 0;
     buttonClick.play();
 
-    await sleep(0.1)
+    await sleep(0.25)
 
     if (played) {
         curentDialog = [
@@ -164,7 +163,7 @@ function checkCount() {
             if (fed && pet && played) {
                 curentDialog = [
                     "Okay I think you've done enough. I'll go ahead and give up the note.",
-                    "But first you must answer one question, once you give your answer you will be redirected accordingly."
+                    "But first you must answer one question. Once you give your answer you will be redirected accordingly."
                 ]
                 clickCount = 0;
                 checkCount();
@@ -196,13 +195,17 @@ async function typeDialog(dialogIdx, dialogArray = ["EMPTY"]) {
         if (!isTyping) { break; }
 
         dialogText.textContent += newText[i]
-        typeSound.currentTime = 0;
-        typeSound.play();
+
+        if (i % 2) {
+            typeSound.currentTime = 0;
+            typeSound.play();
+        }
+
         if (newText[i] == '.') {
             await sleep(0.75);
         }
         else {
-            await sleep(0.06);
+            await sleep(0.04);
         }
     }
 
